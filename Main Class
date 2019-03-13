@@ -1,0 +1,87 @@
+package TugOfWar;
+
+import java.util.Random;
+import java.util.Scanner;
+
+public class TugOfWar {
+
+    public static final int MIN_LENGTH = 5;
+    public static final int MAX_LENGTH = 21;
+
+    public static void main(String[] args) {
+
+        int lengthNumber, number = 2, zero = 0;
+        int position, front, back;
+        String flag = "+";
+        String rope = "-";
+        int count = 0;
+
+        Scanner keyboard = new Scanner(System.in);
+
+        System.out.println("What is the length of the rope (odd number between 5 and 21 inclusive)");
+        lengthNumber = keyboard.nextInt();
+
+        while (((lengthNumber < MIN_LENGTH)) || ((lengthNumber > MAX_LENGTH)) || ((lengthNumber % number == zero))) {
+
+            System.out.print("Error:");
+            System.out.println(" must be odd number between 5 and 21 inclusive");
+            lengthNumber = keyboard.nextInt();
+        }
+
+        position = ((lengthNumber / 2) + 1);
+        back = lengthNumber - position;
+        front = lengthNumber - back - 1;
+        for (int unit = 1; unit <= front; unit++) {
+            System.out.print(rope);
+        }
+        System.out.print(flag);
+
+        for (int unit = 1; unit <= back; unit++) {
+            System.out.print(rope);
+        }
+
+
+        Random randomGenerator = new Random();
+        while ((position < lengthNumber) && (position > 1)) {
+            int randomInt = randomGenerator.nextInt(2);
+            back = lengthNumber - position;
+            front = lengthNumber - back - 1;
+            if (randomInt == 0) {
+                position = position - 1;
+            } else {
+                position = position + 1;
+            }
+            System.out.println();
+            for (int unit = 1; unit <= front; unit++) {
+                System.out.print(rope);
+            }
+            System.out.print(flag);
+
+            for (int unit = 1; unit <= back; unit++) {
+                System.out.print(rope);
+            }
+            count = count + 1;
+        }
+        System.out.println();
+
+        back = lengthNumber - position;
+        front = lengthNumber - back - 1;
+        for (int unit = 1; unit <= front; unit++) {
+            System.out.print(rope);
+        }
+        System.out.print(flag);
+
+        for (int unit = 1; unit <= back; unit++) {
+            System.out.print(rope);
+        }
+        System.out.println();
+        System.out.println("Game Over!");
+        count = count + 2;
+        if (position == 1) {
+            System.out.println("Left Side Wins!");
+        } else {
+            System.out.println("Right Side Wins!");
+        }
+        System.out.println("It took " + count + " steps.");
+    }
+}
